@@ -121,7 +121,6 @@ public class AdvancedAgent extends Agent {
                 var2 = var3;
             }
         }
-
         return var2;
     }
 
