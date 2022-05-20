@@ -16,7 +16,7 @@ public class MiniMaxAgent extends Agent {
      * @param iAmRed boolean
      */
     public MiniMaxAgent(Connect4Game game, boolean iAmRed) {
-        this(game, iAmRed, 9);
+        this(game, iAmRed, 10);
     }
 
     /**
