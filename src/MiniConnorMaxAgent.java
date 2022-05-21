@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class MiniMaxAgent extends Agent {
+public class MiniConnorMaxAgent extends Agent {
 
     private final int DEPTH; // How many steps/turns the Agent will look into the future.
-    private final int[] COLUMN_PRIORITY; // sorry eric but this is too good not to snag
-    private int lastCol;
+    private final int[] COLUMN_PRIORITY; // Prioritizes the middle columns so that there is more pruning.
+    private int lastCol; // Stores the last visited column
 
     /**
      * Constructs an agent that utilizes the minimax algorithm with alpha-beta pruning.
@@ -15,8 +15,8 @@ public class MiniMaxAgent extends Agent {
      * @param game   Connect4Game
      * @param iAmRed boolean
      */
-    public MiniMaxAgent(Connect4Game game, boolean iAmRed) {
-        this(game, iAmRed, 10);
+    public MiniConnorMaxAgent(Connect4Game game, boolean iAmRed) {
+        this(game, iAmRed, 8);
     }
 
     /**
@@ -27,7 +27,7 @@ public class MiniMaxAgent extends Agent {
      * @param iAmRed boolean
      * @param depth  int
      */
-    public MiniMaxAgent(Connect4Game game, boolean iAmRed, int depth) {
+    public MiniConnorMaxAgent(Connect4Game game, boolean iAmRed, int depth) {
         super(game, iAmRed);
         DEPTH = depth;
         // The player represented as a character.
@@ -203,8 +203,8 @@ public class MiniMaxAgent extends Agent {
             for (int j = 0; j < i - 1; j++) {
                 score += evaluateSet(new char[]{board[i][j], board[i - 1][j + 1], board[i - 2][j + 2]});
             }
-            for (int j = game.getRowCount()-1; j >= game.getRowCount()-i+2; j--){
-                score += evaluateSet(new char[]{board[j][i], board[j-1][i-1], board[j-2][i-2]});
+            for (int j = game.getRowCount() - 1; j >= game.getRowCount() - i + 2; j--) {
+                score += evaluateSet(new char[]{board[j][i], board[j - 1][i - 1], board[j - 2][i - 2]});
             }
         }
         // Evaluates the lower upward diagonals && upper downward diagonals
